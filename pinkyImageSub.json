@@ -1,0 +1,152 @@
+{
+  "name": "ImageSubmission",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.piscoc.pinkytoepaper.com/api/image-assets",
+        "authentication": "predefinedCredentialType",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        224
+      ],
+      "id": "b16b823d-fbc3-4c83-b9a8-bbd15aeb84e2",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "O6S7MWkA0d39y1Cc",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cf2952f4-8c59-4ee3-a270-467cc83ef35b",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        224
+      ],
+      "id": "35889004-e9b6-4c88-bc85-7fdc5cafecd7",
+      "name": "Webhook",
+      "webhookId": "cf2952f4-8c59-4ee3-a270-467cc83ef35b"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.body[\"upload an image\"][0] }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        416,
+        224
+      ],
+      "id": "f10ffdd7-a70b-4f5f-b70f-bcdab0776b1d",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "6LevENb9SDaPOHAq",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "nicolajack.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (compatible; Google-Apps-Script; beanserver; +https://script.google.com; id: UAEmdDd-OrZr_8Xx4MFjphACIxu19gkQXcg)",
+            "content-length": "57",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "34.116.21.3",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "US",
+            "cf-ray": "96d3cfb8f6536f9e-IAD",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "x-forwarded-for": "34.116.21.3, 172.70.175.89",
+            "x-forwarded-host": "nicolajack.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-54-58b646fcb5-rrb5r",
+            "x-is-trusted": "yes",
+            "x-real-ip": "34.116.21.3"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "upload an image": [
+              "19WhzNV2HzfHh3m51k_BOdWuwh61o9FJB"
+            ]
+          },
+          "webhookUrl": "https://nicolajack.app.n8n.cloud/webhook/cf2952f4-8c59-4ee3-a270-467cc83ef35b",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "32115a57-5f24-490f-a77f-74f05b845e79",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "83e03174ace5de23499bed7c7baba38029303acc1a6fd0deb5191a8e813b6dfa"
+  },
+  "id": "QkEpxdlowUnBkKdT",
+  "tags": []
+}
